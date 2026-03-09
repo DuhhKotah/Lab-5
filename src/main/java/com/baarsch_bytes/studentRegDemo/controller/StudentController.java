@@ -30,6 +30,12 @@ public class StudentController {
         return repository.save(student);
     }
 
+    // Update
+    @PutMapping
+    public Student update(@RequestBody Student student) {
+        return repository.save(student);
+    }
+
     // DELETE a student
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
