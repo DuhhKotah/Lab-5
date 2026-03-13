@@ -6,7 +6,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/students")
@@ -29,7 +31,7 @@ public class StudentController {
     // POST a new student (The target for Postman testing)
     @PostMapping
     //public ResponseEntity<Student> create(@RequestBody Student student) {
-    public ResponseEntity<String> create(@Valid @RequestBody Student student) {
+    public ResponseEntity<Map<String, String>> create(@Valid @RequestBody Student student) {
         // Lab Logic: You could add validation here to throw an error
         // if GPA > 4.0, giving students a negative test case.
 
@@ -45,14 +47,18 @@ public class StudentController {
 
         // Spring boot validation takes care of that for you!
         repository.save(student);
-        return ResponseEntity.ok(student.getName() + " added successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", student.getName() + " added successfully");
+        return ResponseEntity.ok(response);
     }
 
     // Update
     @PutMapping
-    public ResponseEntity<String> update(@Valid @RequestBody Student student) {
+    public ResponseEntity<Map<String, String>> update(@Valid @RequestBody Student student) {
         repository.save(student);
-        return ResponseEntity.ok(student.getName() + " updated successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", student.getName() + " updated successfully");
+        return ResponseEntity.ok(response);
     }
 
     // DELETE a student
