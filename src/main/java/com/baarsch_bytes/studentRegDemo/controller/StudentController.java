@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
@@ -26,6 +27,11 @@ public class StudentController {
     @GetMapping
     public List<Student> getAll() {
         return repository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Student> getStudent(@PathVariable long id) {
+        return repository.findById(id);
     }
 
     // POST a new student (The target for Postman testing)
