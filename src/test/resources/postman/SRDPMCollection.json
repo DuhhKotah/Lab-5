@@ -219,6 +219,119 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "UpdateCourse",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"CS2\",\r\n    \"maxSize\": 10,\r\n    \"instructor\": 1,\r\n    \"room\" : \"MCS 338\",\r\n    \"roster\": [1, 2]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/courses/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Student",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"studentId\" : 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/courses/addStudent/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "addStudent",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remove Student",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "3",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/courses/removeStudent/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "removeStudent",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Class Size",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"CS2\",\r\n    \"maxSize\": 5,\r\n    \"instructor\": 1,\r\n    \"room\" : \"MCS 338\",\r\n    \"roster\": [1]\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/courses/getEnrollment/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "getEnrollment",
+            "1"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }

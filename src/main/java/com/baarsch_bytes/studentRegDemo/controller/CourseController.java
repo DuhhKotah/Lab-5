@@ -2,6 +2,8 @@ package com.baarsch_bytes.studentRegDemo.controller;
 
 import com.baarsch_bytes.studentRegDemo.dto.CourseRequest;
 import com.baarsch_bytes.studentRegDemo.dto.CourseResponse;
+import com.baarsch_bytes.studentRegDemo.exception.NullCourseException;
+import com.baarsch_bytes.studentRegDemo.exception.NullStudentException;
 import com.baarsch_bytes.studentRegDemo.model.Course;
 import com.baarsch_bytes.studentRegDemo.model.Student;
 import com.baarsch_bytes.studentRegDemo.repository.CourseRepository;
@@ -66,6 +68,76 @@ public class CourseController {
         return ResponseEntity.ok(course.getName() + " added successfully");
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(
+            @Valid @RequestBody CourseRequest request
+            , @PathVariable Long id) {
+        Course course = repository.findById(id).get();
+        course.setName(request.getName());
+        course.setInstructor(request.getInstructor());
+        course.setMaxSize(request.getMaxSize());
+        course.setRoom(request.getRoom());
+        if (request.getRoster() != null) {
+            List<Student> studentsFromDb =
+                    studentRepository.findAllById(request.getRoster());
+            course.setRoster(new HashSet<Student>(studentsFromDb));
+        }
+        // add course to db
+        repository.save(course);
+        return ResponseEntity.ok(course.getName() + " updated successfully");
+    }
+
+    @PutMapping("/addStudent/{courseId}")
+    public ResponseEntity<String> addStudent(@PathVariable Long courseId, @RequestBody long studentId) {
+        try {
+        Course course = repository.findById(courseId).orElseThrow(
+                NullCourseException::new);
+        Student student = studentRepository.findById(studentId).orElseThrow(
+                NullStudentException::new);
+        if (course.getRoster().size() < course.getMaxSize()) {
+            course.getRoster().add(student);
+            repository.save(course);
+            return ResponseEntity.ok(student.getName() + " added successfully");
+        }
+        // badRequest returns a Body Builder--this is used to create// a Response entity.
+            return ResponseEntity.badRequest().body("Course is full");
+        }
+        catch (NullCourseException | NullStudentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/removeStudent/{courseId}")
+    public ResponseEntity<String> removeStudent(@PathVariable Long courseId, @RequestBody long studentId) {
+        try {
+            Course course = repository.findById(courseId).orElseThrow(
+                    NullCourseException::new);
+            Student student = studentRepository.findById(studentId).orElseThrow(
+                    NullStudentException::new);
+            if (course.getRoster().contains(student)) {
+                course.getRoster().remove(student);
+                repository.save(course);
+                return ResponseEntity.ok(student.getName() + " removed successfully");
+            }
+            // badRequest returns a Body Builder--this is used to create// a Response entity.
+            return ResponseEntity.badRequest().body("Student not in that course");
+        }
+        catch (NullCourseException | NullStudentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getEnrollment/{courseId}")
+    public ResponseEntity<Long> getEnrollment(@PathVariable Long courseId) {
+        try {
+            Course course = repository.findById(courseId).orElseThrow(NullCourseException::new);
+            return ResponseEntity.ok((long)course.getRoster().size());
+        }catch (NullCourseException e) {
+            // Going to say that if the course cannot be found, we will return -1.
+            //It might confuse people--but we'll throw it somewhere in the docs.
+            return ResponseEntity.badRequest().body(-1L);
+        }
+    }
 
 
 }
