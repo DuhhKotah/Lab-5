@@ -1,6 +1,5 @@
-package com.baarsch_bytes;
+package com.baarsch_bytes.UnitTesting;
 
-import com.baarsch_bytes.Exceptions.ReservationException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 

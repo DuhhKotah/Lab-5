@@ -1,12 +1,9 @@
-package com.baarsch_bytes;
+package com.baarsch_bytes.UnitTesting;
 
 import com.baarsch_bytes.Converters.LongConstantConverter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
-import org.junit.jupiter.params.converter.SimpleArgumentConverter;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import com.baarsch_bytes.OnlineSalesOld.Status;
-import com.baarsch_bytes.OnlineSalesOld.Status.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

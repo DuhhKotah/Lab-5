@@ -1,4 +1,4 @@
-package com.baarsch_bytes;
+package com.baarsch_bytes.UnitTesting;
 
 import com.baarsch_bytes.Exceptions.GuestAgeReservationException;
 import com.baarsch_bytes.Exceptions.NightReservationException;

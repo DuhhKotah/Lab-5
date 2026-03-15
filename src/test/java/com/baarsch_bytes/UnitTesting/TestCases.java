@@ -1,4 +1,4 @@
-package com.baarsch_bytes;
+package com.baarsch_bytes.UnitTesting;
 
 public class TestCases {
 
