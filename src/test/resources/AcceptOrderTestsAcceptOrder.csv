@@ -1,0 +1,5 @@
+Test Case,special,space,exp_results,exp_accept
+TC 4,TRUE,7,TRUE,TRUE
+TC 5,FALSE,512,TRUE,TRUE
+TC 6,FALSE,5000,TRUE,FALSE
+TC 7,FALSE,-5000,FALSE,FALSE

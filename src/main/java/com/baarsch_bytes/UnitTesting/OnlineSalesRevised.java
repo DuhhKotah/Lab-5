@@ -1,7 +1,7 @@
-package com.baarsch_bytes;
+package com.baarsch_bytes.UnitTesting;
 
-import com.baarsch_bytes.OnlineSalesOld.Status;
-import static com.baarsch_bytes.OnlineSalesOld.Status.*;
+import com.baarsch_bytes.UnitTesting.OnlineSalesOld.Status;
+import static com.baarsch_bytes.UnitTesting.OnlineSalesOld.Status.*;
 
 
 public class OnlineSalesRevised {
